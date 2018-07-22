@@ -1,0 +1,26 @@
+body{
+    background-color:#FFFFDD
+}
+
+#todo{
+    display: inline-block;
+    border: 5px solid brown;
+    padding: 20px solid
+}
+
+#doing{
+    display: inline-block;
+    border: 5px solid brown;
+    padding: 20px solid
+}
+
+#done{
+    display: inline-block;
+    border: 5px solid brown;
+    padding: 20px solid
+}
+
+img{
+    width: 90%;
+    height: 400px;
+}
