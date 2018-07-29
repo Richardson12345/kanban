@@ -51,7 +51,8 @@
             <h6 class="card-title">{{doneItem.doneTitle}}</h6>
             <h6 class="card-subtitle mb-2 text-muted">code: {{doneItem.doneCode}}</h6>
             <p class="card-text">{{doneItem.doneDescription}}</p>
-            <button @click="revertDone(doneItem.doneCode, doneItem.doneTitle, doneItem.doneDescription)" type="button" class="btn btn-danger btn-sm">revert</button> 
+            <button @click="revertDone(doneItem.doneCode, doneItem.doneTitle, doneItem.doneDescription)" type="button" class="btn btn-danger btn-sm">revert</button> || 
+            <button @click="finishAndDelete(doneItem.doneCode)" type="button" class="btn btn-warning btn-sm">delete</button>
           </div>
         </div>
       </div>
@@ -90,7 +91,8 @@ export default {
       'getDoing',
       'regressDoing',
       'proceedDoing',
-      'regressDone'
+      'regressDone',
+      'deleteDone'
 
     ]),
     submitTodo(title, description){
@@ -131,6 +133,9 @@ export default {
         doneDescription
       }
       this.regressDone(doneObj)
+    },
+    finishAndDelete(doneCode){
+      this.deleteDone(doneCode)
     }
   },
   mounted(){
