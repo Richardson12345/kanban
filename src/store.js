@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { database } from './firebase.js'
 import { stat } from 'fs';
+import { EALREADY } from 'constants';
 
 Vue.use(Vuex)
 
@@ -103,9 +104,6 @@ export default new Vuex.Store({
           })
         }
       })
-    },
-    addDone(contet, doingObj){
-
     },
     progressTodo(context, todoObj){
       console.log(todoObj)
@@ -225,8 +223,11 @@ export default new Vuex.Store({
       },(err)=>{
         alert("whats done is now undone")
       })
+    },
+    deleteDone(context, doneCode){
+      database.ref('done/' + doneCode).remove();
+      alert("succesfully deleted")
     }
-
   }
 })
 
