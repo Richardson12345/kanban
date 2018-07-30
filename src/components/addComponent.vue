@@ -1,0 +1,135 @@
+<template>
+    <div class="row justify-content-center">
+       <div class="column md-6">
+         <h3> ADD A NEW BACKLOG :</h3>
+         <br>
+         <h4>Input Title: </h4>
+         <input  v-model="title" class="input-group mb-3" type="text"  placeholder="title">
+         <h4>Input Description :</h4>
+         <input  v-model="description" class="input-group mb-3" type="text"  placeholder="description">
+         <button @click="submitBacklog(title, description)" type="button" class="btn btn-outline-primary">Submit Backlog</button>
+         <br>
+       </div>
+     </div>
+</template>
+<script>
+
+import { mapState , mapActions } from 'vuex';
+
+
+
+export default {
+  name: 'HelloWorld',
+  data(){
+    return {
+      msg : "welcome to hontoni subarashi kanban",
+      title: '',
+      description: ''
+    }
+  },
+  computed: {
+    ...mapState([
+      'todo',
+      'doing',
+      'done',
+      'backlog'
+    ])
+  }
+  ,
+  methods: {
+    ...mapActions([
+      'addBacklog',
+      'addTodo',
+      'getTodo',
+      'getDone',
+      'getBacklog',
+      'progressTodo',
+      'progressBacklog',
+      'getDoing',
+      'regressDoing',
+      'proceedDoing',
+      'regressDone',
+      'regressTodo',
+      'deleteDone'
+
+    ]),
+    submitBacklog(title, description){
+      let contentObj = {
+        title,
+        description
+      }
+      this.addBacklog(contentObj)
+    },
+    proceedBacklog(backlogCode, backlogTitle, backlogDescription){
+       let backlogObj = {
+         backlogCode,
+         backlogTitle,
+         backlogDescription 
+       };
+       this.progressBacklog(backlogObj)
+     },
+    revertTodo(todoCode, todoTitle, todoDescription){
+      let todoObj = {
+        todoCode,
+        todoTitle,
+        todoDescription 
+      };
+      this.regressTodo(todoObj)
+    },
+    moveTodo( todoCode, todoTitle, todoDescription ){
+      let todoObj = {
+        todoCode,
+        todoTitle,
+        todoDescription 
+      };
+      this.progressTodo(todoObj)
+    },
+    revertDoing(doingCode, doingTitle, doingDescription){
+      let doingObj = {
+        doingCode,
+        doingTitle,
+        doingDescription
+      };
+     this.regressDoing(doingObj)
+    },
+    progressDoing(doingCode, doingTitle, doingDescription){
+      let doingObj = {
+        doingCode,
+        doingTitle,
+        doingDescription
+      };
+      this.proceedDoing(doingObj)
+    },
+    revertDone(doneCode, doneTitle, doneDescription){
+      let doneObj = {
+        doneCode,
+        doneTitle,
+        doneDescription
+      }
+      this.regressDone(doneObj)
+    },
+    finishAndDelete(doneCode){
+      this.deleteDone(doneCode)
+    }
+   },
+    mounted(){
+    }  
+}
+</script>
+
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>

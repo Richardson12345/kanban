@@ -1,6 +1,7 @@
 <template>
   <div class="about">
-    <h1>This is my kanban project</h1>
+    <h1>This Kanban Project was not possible without the help of Richardson who donated $100 million for charitable causes, please help support this project by donating to our patreon</h1>
+    <br>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam egestas rutrum accumsan. Phasellus aliquet, velit id fringilla consectetur, quam sem commodo lorem, et sodales nisi nulla quis lacus. Mauris pharetra viverra vestibulum. Quisque molestie diam tempus velit tempor, eget commodo massa tristique. Vestibulum sit amet nisi nec lorem vestibulum vestibulum. Aliquam tristique tincidunt molestie. Aenean ligula turpis, euismod a tortor a, convallis commodo enim. Phasellus placerat ultricies mi, eu iaculis libero dapibus et.
 
