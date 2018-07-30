@@ -5,20 +5,32 @@
     <br>
      <div class="row justify-content-center">
        <div class="column md-6 ">
-         <h3> ADD A NEW TODO :</h3>
+         <h3> ADD A NEW BACKLOG :</h3>
          <br>
          <h4>Input Title: </h4>
          <input  v-model="title" class="input-group mb-3" type="text"  placeholder="title">
          <h4>Input Description :</h4>
          <input  v-model="description" class="input-group mb-3" type="text"  placeholder="description">
-         <button @click="submitTodo(title, description)" type="button" class="btn btn-outline-primary">Submit Todo</button>
+         <button @click="submitBacklog(title, description)" type="button" class="btn btn-outline-primary">Submit Backlog</button>
          <br>
        </div>
      </div>
     <br>
     <hr>
     <div class="row ">
-      <div class="column col-md-4 ">
+      <div class="column col-md-3 ">
+        <h1>backlog</h1>
+        <div class="card" style="width: 18rem;" v-for="(backlogItem, key) in backlog"
+          v-bind:key=key>
+          <div class="card-body">
+            <h6 class="card-title">{{backlogItem.backlogTitle}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">code:{{backlogItem.backlogCode}}</h6>
+            <p class="card-text">{{backlogItem.backlogDescription}}</p>
+            <button @click="proceedBacklog(backlogItem.backlogCode, backlogItem.backlogTitle, backlogItem.backlogDescription)" type="button" class="btn btn-success btn-sm">progress</button>
+          </div>
+        </div>
+      </div>
+      <div class="column col-md-3 ">
         <h1>todo</h1>
         <div class="card" style="width: 18rem;" v-for="(todoItem, key) in todo"
           v-bind:key=key>
@@ -26,11 +38,12 @@
             <h6 class="card-title">{{todoItem.todoTitle}}</h6>
             <h6 class="card-subtitle mb-2 text-muted">code:{{todoItem.todoCode}}</h6>
             <p class="card-text">{{todoItem.todoDescription}}</p>
+            <button @click="revertTodo(todoItem.todoCode, todoItem.todoTitle, todoItem.todoDescription)" type="button" class="btn btn-danger btn-sm">revert</button> | | 
             <button @click="moveTodo(todoItem.todoCode, todoItem.todoTitle, todoItem.todoDescription)" type="button" class="btn btn-success btn-sm">progress</button>
           </div>
         </div>
       </div>
-      <div class="column col-md-4">
+      <div class="column col-md-3">
         <h1>doing</h1>
         <div class="card" style="width: 18rem;" v-for="(doingItem, key) in doing"
           v-bind:key=key>
@@ -43,7 +56,7 @@
           </div>
         </div>
       </div>  
-      <div class="column col-md-4">
+      <div class="column col-md-3">
         <h1>done</h1>
         <div class="card" style="width: 18rem;" v-for="(doneItem, key) in done"
           v-bind:key=key>
@@ -78,29 +91,50 @@ export default {
     ...mapState([
       'todo',
       'doing',
-      'done'
+      'done',
+      'backlog'
     ])
   }
   ,
   methods: {
     ...mapActions([
+      'addBacklog',
       'addTodo',
       'getTodo',
       'getDone',
+      'getBacklog',
       'progressTodo',
+      'progressBacklog',
       'getDoing',
       'regressDoing',
       'proceedDoing',
       'regressDone',
+      'regressTodo',
       'deleteDone'
 
     ]),
-    submitTodo(title, description){
+    submitBacklog(title, description){
       let contentObj = {
         title,
         description
       }
-      this.addTodo(contentObj)
+      this.addBacklog(contentObj)
+    },
+    proceedBacklog(backlogCode, backlogTitle, backlogDescription){
+       let backlogObj = {
+         backlogCode,
+         backlogTitle,
+         backlogDescription 
+       };
+       this.progressBacklog(backlogObj)
+     },
+    revertTodo(todoCode, todoTitle, todoDescription){
+      let todoObj = {
+        todoCode,
+        todoTitle,
+        todoDescription 
+      };
+      this.regressTodo(todoObj)
     },
     moveTodo( todoCode, todoTitle, todoDescription ){
       let todoObj = {
@@ -137,13 +171,14 @@ export default {
     finishAndDelete(doneCode){
       this.deleteDone(doneCode)
     }
-  },
-  mounted(){
-    this.getTodo(),
-    this.getDoing(),
-    this.getDone()
-  }
-}
+   },
+    mounted(){
+      this.getTodo(),
+      this.getDoing(),
+      this.getDone(),
+      this.getBacklog()
+    }
+ }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
